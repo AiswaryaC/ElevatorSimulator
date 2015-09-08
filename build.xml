@@ -4,47 +4,47 @@
 
 	<path id="classpath">
 		<fileset dir="lib">
-			<include name="bsh-2.0b4.jar"/>
+			<include name="bsh-2.0b4.jar" />
 		</fileset>
-		
 	</path>
-	
-    <target name="clean">
-        <delete dir="build"/>
-    </target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes">
-       		 <classpath>
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes">
+			<classpath>
 				<path refid="classpath" />
 			</classpath>
-        </javac>
-    </target>
+		</javac>
+	</target>
 
-    <target name="jar" depends="compile">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/elevator.jar" basedir="build/classes">
-            <manifest>
-                <attribute name="Main-Class" value="com.sample.simulator.main.SimulatorMain"/>
-            </manifest>
-        	
-        </jar>
-        <jar destfile="build/jar/elevator-src.jar">
-            <manifest>
-                <attribute name="Main-Class" value="com.sample.simulator.main.SimulatorMain"/>
-            </manifest>
-            <fileset dir="src" includes="**/*.java"/>
-        </jar>
-    </target>
+	<target name="jar" depends="compile">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/elevator.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="com.sample.simulator.main.SimulatorMain" />
+				<attribute name="Class-Path" value="bsh-2.0b4.jar" />
+			</manifest>			
+		</jar>
+		<jar destfile="build/jar/elevator-src.jar">
+			<manifest>
+				<attribute name="Main-Class" value="com.sample.simulator.main.SimulatorMain" />
+				<attribute name="Class-Path" value="lib/bsh-2.0b4.jar" />
+			</manifest>
+			<fileset dir="src" includes="**/*.java" />
+		</jar>
+	</target>
 
-    <target name="run">
-        <java jar="build/jar/elevator.jar" fork="true">
-        	<classpath>
-        		<path refid="classpath"/>
-        		<path location="jar/elevator.jar"/>
-        	</classpath>
-        </java>
-    </target>
+	<target name="run">
+		<java jar="build/jar/elevator.jar" fork="true">
+			<classpath>
+				<path refid="classpath" />
+				<path location="jar/elevator.jar" />
+			</classpath>
+		</java>
+	</target>
 
 </project>

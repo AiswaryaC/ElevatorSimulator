@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sample.simulator.main;
+package com.sample.simulator.domain;
 
 /**
  * @author Aiswarya

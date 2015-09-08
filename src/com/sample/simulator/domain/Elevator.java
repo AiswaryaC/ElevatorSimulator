@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.sample.simulator.helper.DisplayMessage;
-import com.sample.simulator.main.States;
 
 public class Elevator {
 
@@ -17,7 +16,7 @@ public class Elevator {
 	private Direction direction;
 	private int waitTime;
 
-	public static int MAX_PASSENGER = 5;
+	public static int MAX_PASSENGER = 3;
 
 	private List<Passenger> passengers;
 
@@ -47,8 +46,8 @@ public class Elevator {
 	}
 
 	/**
-		 * 
-		 */
+	 * default constructor
+	 */
 	public void emptyElevator() {
 
 	}
@@ -72,6 +71,13 @@ public class Elevator {
 					status = States.OPEN;
 					removePassengers();
 
+				}else if(currentFloor == nextFloor){
+					DisplayMessage
+					.writeToConsole("/\\"
+							+ nextFloor
+							+ "Stop! Opening elevator...Loading/Unloading Passengers. Please wait...");
+					status = States.OPEN;
+					removePassengers();
 				}
 				try {
 					Thread.sleep(waitTime);
@@ -106,6 +112,13 @@ public class Elevator {
 									+ "Stop! Opening elevator...Loading/Unloading Passengers. Please wait...");
 					status = States.OPEN;
 					removePassengers();
+				}else if(currentFloor == nextFloor){
+					DisplayMessage
+					.writeToConsole("/\\"
+							+ nextFloor
+							+ "Stop! Opening elevator...Loading/Unloading Passengers. Please wait...");
+					status = States.OPEN;
+					removePassengers();
 				}
 				try {
 					Thread.sleep(waitTime);
@@ -132,8 +145,7 @@ public class Elevator {
 		default:
 			// TODO throw unknown direction exception
 			break;
-		}
-
+		}		
 		DisplayMessage.logElevatorStatus(currentFloor, direction, status);
 	}
 

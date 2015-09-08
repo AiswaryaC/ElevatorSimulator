@@ -14,8 +14,8 @@ import java.util.TreeSet;
 import com.sample.simulator.domain.Direction;
 import com.sample.simulator.domain.Elevator;
 import com.sample.simulator.domain.Passenger;
+import com.sample.simulator.domain.States;
 import com.sample.simulator.helper.DisplayMessage;
-import com.sample.simulator.main.States;
 
 /**
  * @author AiswaryaC
@@ -100,6 +100,7 @@ public class ElevatorController extends Thread {
 				} else {
 					DisplayMessage
 							.writeToConsole("Elevator reached the capacity. No more passengers can be loaded");
+					break;
 				}
 				if(addedPassenger){
 					addFloor(passenger.getTargetFloor());
@@ -109,7 +110,7 @@ public class ElevatorController extends Thread {
 					addFloor(passenger.getPosition());
 				}
 			}
-			DisplayMessage.displayMessage("Removing Passenger "+toBeRemoved);
+			DisplayMessage.writeToConsole("Removing Passenger "+toBeRemoved);
 			boardingQueue.removeAll(toBeRemoved);
 		}
 		
@@ -201,6 +202,17 @@ public class ElevatorController extends Thread {
 	public void addPassenger(Passenger passenger) {		
 		getBoardingQueue().add(passenger);		
 	}
+	
+	/**
+	 * add all the passengers to the queue
+	 * 
+	 * @param passengers
+	 */
+	public void addPassenger(PriorityQueue<Passenger> passengers) {		
+		if(passengers != null && !passengers.isEmpty()){
+			getBoardingQueue().addAll(passengers);		
+		}
+	}
 
 	/**
 	 * initialize elevator with defaults
@@ -235,6 +247,7 @@ public class ElevatorController extends Thread {
 				//Move to the requested floor based on commands
 				elevator.moveFloor();				
 				updateCommands();
+				
 			}			
 			//Set status as idle if there are not commands to operate on
 			if(elevator.getUpCommands().isEmpty() && elevator.getDownCommands().isEmpty()){

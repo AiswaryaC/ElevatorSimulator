@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import bsh.util.JConsole;
 
 import com.sample.simulator.domain.Direction;
-import com.sample.simulator.main.States;
+import com.sample.simulator.domain.States;
 
 /**
  * @author AiswaryaC
@@ -85,7 +85,7 @@ public class DisplayMessage {
 	}
 
 	public static void logElevatorStatus(int currentFloor, Direction direction, States status) {
-		System.out.println("Elevator is "+direction.getDirection()+"!\n Currect Floor: "+currentFloor + " Status: "+status.getState());
+		writeToConsole("Elevator is "+direction.getDirection()+"!\n Currect Floor: "+currentFloor + " Status: "+status.getState());
 		
 	}
 
